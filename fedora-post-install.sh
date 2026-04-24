@@ -75,7 +75,8 @@ case $gpu_choice in
         ;;
     2)
         info "Installing AMD VA-API drivers..."
-        dnf install -y mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686
+        dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+        dnf install -y mesa-va-drivers-freeworld.i686
         ;;
     3)
         info "Installing NVIDIA VA-API drivers..."
