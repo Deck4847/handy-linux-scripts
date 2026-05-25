@@ -75,25 +75,22 @@ case $gpu_choice in
         ;;
     2)
         info "Installing AMD VA-API drivers..."
-        if dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld --allowerasing; then
-            dnf install -y mesa-va-drivers-freeworld.i686
+        if dnf install -y --allowerasing mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686; then
             info "AMD VA-API freeworld drivers installed successfully."
         else
             echo ""
             echo -e "${RED}=========================================${NC}"
-            echo -e "${RED}  ⚠️  AMD VA-API driver swap failed!${NC}"
+            echo -e "${RED}  ⚠️  AMD VA-API driver install failed!${NC}"
             echo -e "${RED}=========================================${NC}"
             echo ""
-            echo "  This is usually caused by a version mismatch between"
-            echo "  Fedora's mesa packages and RPM Fusion's freeworld build."
-            echo "  Common on Fedora beta — RPM Fusion needs time to catch up."
+            echo "  The freeworld driver install did not complete."
+            echo "  Try running it manually to see the full error:"
             echo ""
-            echo "  Run these commands manually once the versions align:"
+            echo "    sudo dnf install --allowerasing mesa-va-drivers-freeworld mesa-va-drivers-freeworld.i686"
             echo ""
-            echo "    sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing"
-            echo "    sudo dnf install mesa-va-drivers-freeworld.i686"
+            echo "  If it still fails, check that RPM Fusion is reachable"
+            echo "  and that an installable version exists:"
             echo ""
-            echo "  Check available versions with:"
             echo "    dnf repoquery mesa-va-drivers-freeworld --available"
             echo ""
             read -rp "Press Enter to continue the rest of the script..."
